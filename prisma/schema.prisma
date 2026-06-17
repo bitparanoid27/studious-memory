@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model TrafficLog {
+  year       String?   @map("YEAR") @db.VarChar
+  monthNum   String?   @map("MONTH_NUM") @db.VarChar
+  monthMon   String?   @map("MONTH_MON") @db.VarChar
+  fltDate    DateTime? @map("FLT_DATE") @db.Date
+  aptIcao    String?   @map("APT_ICAO") @db.VarChar
+  aptName    String?   @map("APT_NAME") @db.VarChar
+  stateName  String?   @map("STATE_NAME") @db.VarChar
+  fltDep1    Float?    @map("FLT_DEP_1")
+  fltArr1    Float?    @map("FLT_ARR_1")
+  fltTot1    Float?    @map("FLT_TOT_1")
+  fltDepIfr2 Float?    @map("FLT_DEP_IFR_2")
+  fltArrIfr2 Float?    @map("FLT_ARR_IFR_2")
+  fltTotIfr2 Float?    @map("FLT_TOT_IFR_2")
+  id         Int       @id @default(autoincrement())
+
+  @@map("traffic_data")
+}
